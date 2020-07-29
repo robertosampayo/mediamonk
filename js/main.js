@@ -387,7 +387,7 @@ window.onload = function() {
 	}
 
 	function moveBackgroundTo(from, to) {
-		
+
 		let positionOld = positionEnd;
 		let positionNew = (imageSize/10)*(getPositions(from, to));
 		
@@ -407,6 +407,9 @@ window.onload = function() {
 	}
 
 	function moveBackgroundToFront(positionEnd) {
+
+		document.querySelector('#back').style.pointerEvents= 'none';
+		document.querySelector('#next').style.pointerEvents= 'none';
 		document.querySelector('.navigation').style.pointerEvents= 'none';
 		var elem = document.querySelector('.large-background'),
 		  timer;
@@ -416,7 +419,8 @@ window.onload = function() {
 		  
 		  if ( positionX >= positionEnd || positionEnd === imageSize ) {
 		  	positionX = positionEnd;
-
+		  	document.querySelector('#back').style.pointerEvents= 'all';
+		  	document.querySelector('#next').style.pointerEvents= 'all';
 		  	document.querySelector('.navigation').style.pointerEvents= 'all';
 		    clearInterval( timer );
 		  }
@@ -425,7 +429,8 @@ window.onload = function() {
 
 	function moveBackgroundToBack(positionEnd) {
 
-
+		document.querySelector('#back').style.pointerEvents= 'none';
+		document.querySelector('#next').style.pointerEvents= 'none';
 		document.querySelector('.navigation').style.pointerEvents= 'none';
 		var elem = document.querySelector('.large-background'),
 		  timer;
@@ -435,7 +440,8 @@ window.onload = function() {
 		  
 		  if ( positionX <= positionEnd || positionEnd === 0 ) {
 		  	positionX = positionEnd;
-
+		  	document.querySelector('#back').style.pointerEvents= 'all';
+		  	document.querySelector('#next').style.pointerEvents= 'all';
 		  	document.querySelector('.navigation').style.pointerEvents= 'all';
 		    clearInterval( timer );
 		  }
@@ -443,6 +449,8 @@ window.onload = function() {
 	}
 
 	function moveBackgroundToStart() {
+		document.querySelector('#back').style.pointerEvents= 'none';
+		document.querySelector('#next').style.pointerEvents= 'none';
 		document.querySelector('.navigation').style.pointerEvents= 'none';
 		positionEnd = 0;
 		var elem = document.querySelector('.large-background'),
@@ -453,7 +461,8 @@ window.onload = function() {
 		  
 		  if ( positionX <= positionEnd ) {
 		  	positionX = positionEnd;
-
+		  	document.querySelector('#back').style.pointerEvents= 'all';
+		  	document.querySelector('#next').style.pointerEvents= 'all';
 		  	document.querySelector('.navigation').style.pointerEvents= 'all';
 		    clearInterval( timer );
 		  }
@@ -461,6 +470,8 @@ window.onload = function() {
 	}
 	function moveBackgroundToEnd(){
 		document.querySelector('.navigation').style.pointerEvents= 'none';
+		document.querySelector('#back').style.pointerEvents= 'none';
+		document.querySelector('#next').style.pointerEvents= 'none';
 		positionEnd = (imageSize/10)*(getPositions(1, 10));
 
 
@@ -472,7 +483,8 @@ window.onload = function() {
 		  
 		  if ( positionX >= positionEnd ) {
 		  	positionX = positionEnd;
-
+		  	document.querySelector('#back').style.pointerEvents= 'all';
+		  	document.querySelector('#next').style.pointerEvents= 'all';
 		  	document.querySelector('.navigation').style.pointerEvents= 'all';
 		    clearInterval( timer );
 		  }
