@@ -52,7 +52,7 @@ window.onload = function() {
 				let current = document.querySelector('#phrase'+(slide-1));
 		 		let after = document.querySelector('#phrase'+(slide));
 		 		hideAllPhrases();
-				if (slide > 0 && slide < 10) { 
+				if (to > 0 && to < 10) { 
 
 					if (slide === 2) {
 						// current.classList.toggle('off');
@@ -63,7 +63,13 @@ window.onload = function() {
 
 			    	after.classList.toggle('on');
 			    	removeAllSteps();
-			    	document.querySelector('.step'+slide).classList.add('on');
+			    	if (slide > 1 && slide <=9) { 
+
+			    		document.querySelector('.step'+(to-1)).classList.add('on');
+			    	}
+
+
+
 
 				}
 
@@ -84,6 +90,8 @@ window.onload = function() {
 			 	}
 
 			 	if (slide === 10) {
+			 		document.querySelector('.phrases').style.pointerEvents= 'none';
+			 		document.querySelector('#end_mobile').style.pointerEvents= 'all';
 			 		document.querySelector('#phrase9').classList.remove('on');
 
 			 		if (detectMobile()) {
@@ -127,9 +135,9 @@ window.onload = function() {
 				    }
 				    else{ jump('section'+slide);  }
 				    removeAllSteps();
-				    if (slide > 1 && slide <=8) {
+				    if (slide > 1 && slide <=9) {
 
-				    	document.querySelector('.step'+slide).classList.add('on');
+				    	document.querySelector('.step'+(to-1)).classList.add('on');
 				    }
 		 	}
 
@@ -145,7 +153,8 @@ window.onload = function() {
 		 	}
 
 		 	if (slide === 9) {
-
+		 		document.querySelector('.phrases').style.pointerEvents= 'all';
+		 		document.querySelector('#end_mobile').style.pointerEvents= 'none';
 		 		hideContact();
 		 		if (detectMobile()){
 		 			moveBackgroundToEnd();
@@ -185,14 +194,15 @@ window.onload = function() {
 	 	 		 
 	 	 		 if(slide!=to){
 	 		 		slide=$position;
-
-	 				if (from !== 1) {
+	 		 		document.querySelector('.phrases').style.pointerEvents= 'all';
+	 		 		document.querySelector('#end_mobile').style.pointerEvents= 'none';
+	 				if (to !== 1) {
 
 	 					document.querySelector('.initial-text').classList.remove('on');
 	 				}
 
 
-	 				if (from === 1) {
+	 				if (slide === 1) {
 
 	 					
 	 					backButton.classList.remove('show');
@@ -234,12 +244,14 @@ window.onload = function() {
 	 		 		 
 	 		 		 	
 	 		 		 	if (to === 9) { 
+
 	 		 		 		document.querySelector('.step'+(to-1)).classList.add('on');
 	 		 		 		jump('section8'); 
 	 		 		 	}
 	 		 		 	
 	 		 		 	if (to === 10) { 
-
+	 		 		 		 document.querySelector('.phrases').style.pointerEvents= 'none';
+	 		 		 		 document.querySelector('#end_mobile').style.pointerEvents= 'all';
 	 		 		 		 if (detectMobile()) {
 	 		 		 		 	moveBackgroundToEnd();
 	 		 				 	showContact();
@@ -375,7 +387,7 @@ window.onload = function() {
 	}
 
 	function moveBackgroundTo(from, to) {
-
+		
 		let positionOld = positionEnd;
 		let positionNew = (imageSize/10)*(getPositions(from, to));
 		
@@ -395,7 +407,7 @@ window.onload = function() {
 	}
 
 	function moveBackgroundToFront(positionEnd) {
-
+		document.querySelector('.navigation').style.pointerEvents= 'none';
 		var elem = document.querySelector('.large-background'),
 		  timer;
 		timer = setInterval(function() {
@@ -405,7 +417,7 @@ window.onload = function() {
 		  if ( positionX >= positionEnd || positionEnd === imageSize ) {
 		  	positionX = positionEnd;
 
-		  	
+		  	document.querySelector('.navigation').style.pointerEvents= 'all';
 		    clearInterval( timer );
 		  }
 		}, 15);
@@ -414,7 +426,7 @@ window.onload = function() {
 	function moveBackgroundToBack(positionEnd) {
 
 
-
+		document.querySelector('.navigation').style.pointerEvents= 'none';
 		var elem = document.querySelector('.large-background'),
 		  timer;
 		timer = setInterval(function() {
@@ -424,14 +436,14 @@ window.onload = function() {
 		  if ( positionX <= positionEnd || positionEnd === 0 ) {
 		  	positionX = positionEnd;
 
-		  	
+		  	document.querySelector('.navigation').style.pointerEvents= 'all';
 		    clearInterval( timer );
 		  }
 		}, 15);
 	}
 
 	function moveBackgroundToStart() {
-
+		document.querySelector('.navigation').style.pointerEvents= 'none';
 		positionEnd = 0;
 		var elem = document.querySelector('.large-background'),
 		  timer;
@@ -442,13 +454,13 @@ window.onload = function() {
 		  if ( positionX <= positionEnd ) {
 		  	positionX = positionEnd;
 
-		  	
+		  	document.querySelector('.navigation').style.pointerEvents= 'all';
 		    clearInterval( timer );
 		  }
 		}, 15);
 	}
 	function moveBackgroundToEnd(){
-
+		document.querySelector('.navigation').style.pointerEvents= 'none';
 		positionEnd = (imageSize/10)*(getPositions(1, 10));
 
 
@@ -461,7 +473,7 @@ window.onload = function() {
 		  if ( positionX >= positionEnd ) {
 		  	positionX = positionEnd;
 
-		  	
+		  	document.querySelector('.navigation').style.pointerEvents= 'all';
 		    clearInterval( timer );
 		  }
 		}, 15);

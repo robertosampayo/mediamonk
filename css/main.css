@@ -266,6 +266,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
   align-items: flex-end;
   justify-content: center;
   padding: 2rem;
+  z-index: 999999999;
 }
 
 .end h1 {
@@ -942,7 +943,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
         width: 105vw; 
         position: fixed;
         opacity: 0;
-        pointer-events: none;
+        z-index: 999999999;
       }
 
       #end {
@@ -954,7 +955,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
       .end h1 {
         position: absolute;
         top: 0;
-        width: 100%;
+        width: auto;
         font-size: 30pt;
         text-align: right;
         right: 2rem;
@@ -963,6 +964,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
       .next, .back{
         top: 15%;
         position: absolute;
+        z-index: 9999999999;
       }
 
       .mediamonks {
@@ -1045,7 +1047,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
           width: 105vw; 
           position: fixed;
           opacity: 0;
-          pointer-events: none;
+          z-index: 999999999;
         }
 
         #end {
@@ -1057,7 +1059,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
         .end h1 {
           position: absolute;
           top: 0;
-          width: 100%;
+          width: auto;
           font-size: 30pt;
           text-align: right;
           right: 2rem;
@@ -1066,6 +1068,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
         .next, .back{
           top: 15%;
           position: absolute;
+          z-index: 9999999999;
         }
 
         .mediamonks {
