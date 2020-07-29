@@ -193,6 +193,12 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
 
 }
 
+.titulo > span, .end > h1 {
+  border-bottom: 1px solid;
+  display: inline-block;
+  line-height: 0.85;
+}
+
 .wrapper {
   display: flex;
   height: 100vh;
@@ -898,7 +904,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
       }
 
       .wrapper .large-background {
-        background-position-y: 40%;
+        background-position-y: 60%;
       }
       .navigation {
         bottom: 15%;
@@ -916,6 +922,8 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
         bottom: auto;
         transform: translate(0,0%);
       }
+
+
 
 
       .phrases {
@@ -1001,7 +1009,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; color: #fff; font-family: klavika-ligh
         }
 
         .wrapper .large-background {
-          background-position-y: 40%;
+          background-position-y: 60%;
         }
         .navigation {
           bottom: 15%;

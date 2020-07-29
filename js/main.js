@@ -26,7 +26,8 @@ window.onload = function() {
 	"use strict";
 
 	var imageSize = 12226; //px
-	// var endImage = 10
+	var slide = 1;
+
 	// Detect Device
 	function detectMobile() {
 	  let check = false;
@@ -42,407 +43,251 @@ window.onload = function() {
 
 
 
+	function slideNext () {
+				let from = slide;
+			 	let to = from+1;
+				slide++;
+				removeAllActivesNavigations();
+				document.querySelector('#navigation'+slide+'>span').classList.add('active');
+				let current = document.querySelector('#phrase'+(slide-1));
+		 		let after = document.querySelector('#phrase'+(slide));
+		 		hideAllPhrases();
+				if (slide > 0 && slide < 10) { 
+
+					if (slide === 2) {
+						// current.classList.toggle('off');
+			 			backButton.classList.remove('hide');
+						backButton.classList.add('show');
+						document.querySelector('.initial-text').classList.remove('on');
+					}
+
+			    	after.classList.toggle('on');
+			    	removeAllSteps();
+			    	document.querySelector('.step'+slide).classList.add('on');
+
+				}
 
 
-	var slide = 1;
+			 	if (slide < 9) {
+
+				 	
+				 	if (detectMobile()) { moveBackgroundTo(from,to); }
+				 	else{ jump('section'+slide); }
+					
+
+
+			 	}	 
+			 	if (slide === 9) {
+			 		if (detectMobile()) {
+			 		 	moveBackgroundToEnd();
+			 		 }
+			 	}
+
+			 	if (slide === 10) {
+			 		document.querySelector('#phrase9').classList.remove('on');
+
+			 		if (detectMobile()) {
+			 			slide=10;
+			 		 	moveBackgroundToEnd();
+					 	showContact();
+			 		 }else {
+
+			 		 	jump('end');
+			 		 }
+
+			 		nextButton.classList.add('hide');
+			 		nextButton.classList.remove('show');
+
+			 	}
+	}
+
+	function slideBack () {
+			let from = slide;
+		 	let to = from-1;
+		 	slide--;
+
+			removeAllActivesNavigations();
+			document.querySelector('#navigation'+slide+'>span').classList.add('active');
+		 	let current = document.querySelector('#phrase'+(slide+1));
+		 	let before = document.querySelector('#phrase'+(slide));
+		 	hideAllPhrases();
+		 	if (slide > 0 && slide < 9) {
+
+
+				    before.classList.toggle('on');
+				    if(detectMobile()) {
+
+					    if(to === 1){
+					    	moveBackgroundToStart();
+
+					    }else{
+
+					    	 moveBackgroundTo(from,to); 
+					    }
+				    }
+				    else{ jump('section'+slide);  }
+				    removeAllSteps();
+				    if (slide > 1 && slide <=8) {
+
+				    	document.querySelector('.step'+slide).classList.add('on');
+				    }
+		 	}
+
+
+
+
+
+		 	if (slide === 1) {
+			 	backButton.classList.add('hide');
+			 	backButton.classList.remove('show');
+			 	document.querySelector('.initial-text').classList.add('on');
+
+		 	}
+
+		 	if (slide === 9) {
+
+		 		hideContact();
+		 		if (detectMobile()){
+		 			moveBackgroundToEnd();
+		 		}
+		 			else{ jump('section8');	}
+
+		 		let before = document.querySelector('#phrase9');
+		 		before.classList.toggle('on');
+			 	nextButton.classList.remove('hide');
+				nextButton.classList.add('show');
+
+
+
+
+		 	}
+	}
+
+	
 	// Next button
 	nextButton.addEventListener("click", function(event) {
-
 		event.preventDefault();
-
-
-		slide++;
-		removeAllActivesNavigations();
-		document.querySelector('#navigation'+slide+'>span').classList.add('active');
-		let current = document.querySelector('#phrase'+(slide-1));
- 		let after = document.querySelector('#phrase'+(slide));
- 		hideAllPhrases();
-		if (slide > 0 && slide < 10) { 
-
-			if (slide === 2) {
-				// current.classList.toggle('off');
-	 			backButton.classList.remove('hide');
-				backButton.classList.add('show');
-				document.querySelector('.initial-text').classList.remove('on');
-			}
-
-	    	after.classList.toggle('on');
-	    	removeAllSteps();
-	    	document.querySelector('.step'+slide).classList.add('on');
-
-		}
-
-
-	 	if (slide < 9) {
-
-		 	
-		 	if (detectMobile()) { moveBackgroundToFront(); }
-		 	else{ jump('section'+slide); }
-			
-
-
-	 	}	 
-	 	if (slide === 9) {
-	 		if (detectMobile()) {
-	 		 	moveBackgroundToEnd();
-	 		 }
-	 	}
-
-	 	if (slide === 10) {
-	 		document.querySelector('#phrase9').classList.remove('on');
-
-	 		if (detectMobile()) {
-	 			slide=10;
-	 		 	moveBackgroundToEnd();
-			 	showContact();
-	 		 }else {
-
-	 		 	jump('end');
-	 		 }
-
-	 		nextButton.classList.add('hide');
-	 		nextButton.classList.remove('show');
-
-	 	}
+		slideNext();
 
 	 });
 
 	 // Back button
 	 backButton.addEventListener("click", function() {
-	 	slide--;
-		removeAllActivesNavigations();
-		document.querySelector('#navigation'+slide+'>span').classList.add('active');
-	 	let current = document.querySelector('#phrase'+(slide+1));
-	 	let before = document.querySelector('#phrase'+(slide));
-	 	hideAllPhrases();
-	 	if (slide > 0 && slide < 9) {
-
-
-			    before.classList.toggle('on');
-			    if (detectMobile()) { moveBackgroundToBack(); }
-			    else{ jump('section'+slide);  }
-			    removeAllSteps();
-			    if (slide > 2 && slide <=8) {
-
-			    	document.querySelector('.step'+slide).classList.add('on');
-			    }
-	 	}
-	 	if (slide === 1) {
-		 	backButton.classList.add('hide');
-		 	backButton.classList.remove('show');
-		 	document.querySelector('.initial-text').classList.add('on');
-
-	 	}
-
-	 	if (slide === 9) {
-
-	 		hideContact();
-	 		if (detectMobile()){
-	 			moveBackgroundToEnd();
-	 		}
-	 			else{ jump('section8');	}
-
-	 		let before = document.querySelector('#phrase9');
-	 		before.classList.toggle('on');
-		 	nextButton.classList.remove('hide');
-			nextButton.classList.add('show');
-
-
-
-
-	 	}
-
+	 	event.preventDefault();
+	 	slideBack();
 	 });
+
+
+	 function navigateTo($position) {
+	 	 		 const from = slide;
+	 	 		 const to = $position;
+
+	 	 		 
+	 	 		 if(slide!=to){
+	 		 		slide=$position;
+
+	 				if (from !== 1) {
+
+	 					document.querySelector('.initial-text').classList.remove('on');
+	 				}
+
+
+	 				if (from === 1) {
+
+	 					
+	 					backButton.classList.remove('show');
+	 					backButton.classList.add('hide');
+	 					document.querySelector('.initial-text').classList.add('on');
+	 				}
+
+
+	 				if (to > 1) { 
+	 					backButton.classList.remove('hide');
+	 					backButton.classList.add('show');
+	 				}
+
+	 				removeAllSteps();
+	 				if (to > 1 && to < 10) {
+	 					document.querySelector('.step'+(to-1)).classList.add('on');
+	 				}
+
+	 				
+
+
+	 	 		 	removeAllActivesNavigations();
+	 	 		 	document.querySelector('#navigation'+to+'>span').classList.add('active');
+	 		 		 hideAllPhrases();
+	 		 		 if (to !== 10) { 
+	 		 		 	let current = document.querySelector('#phrase'+to); 
+	 	 		 	 	current.classList.toggle('on'); }
+
+	 	 		 	 // removeAllSteps();
+	 	 		 	 // document.querySelector('.step'+slide).classList.add('on');
+	 	 		 	 
+	 	 		 	 
+
+
+
+	 	 		 	 nextButton.classList.remove('hide');
+	 				 nextButton.classList.add('show');
+	 				 hideContact();
+	 		 		 
+	 		 		 	
+	 		 		 	if (to === 9) { 
+	 		 		 		document.querySelector('.step'+(to-1)).classList.add('on');
+	 		 		 		jump('section8'); 
+	 		 		 	}
+	 		 		 	
+	 		 		 	if (to === 10) { 
+
+	 		 		 		 if (detectMobile()) {
+	 		 		 		 	moveBackgroundToEnd();
+	 		 				 	showContact();
+	 		 		 		 }else {
+
+	 		 		 		 	jump('end');
+
+	 		 		 		 }
+	 		 		 		removeAllSteps();
+	 		 		 		backButton.classList.remove('hide');
+	 		 		 		backButton.classList.add('show');
+
+	 		 		 		nextButton.classList.remove('show');
+	 		 		 		nextButton.classList.add('hide');
+	 		 		 	}
+	 		 		 	
+	 		 		 	if (to !== 9 && to !== 10) {
+
+	 		 		 		if(!detectMobile()) {
+
+	 		 		 			jump('section'+to);
+	 		 		 		}
+	 		 		 		
+	 		 		 	}
+
+	 		 		 	if (to === 1) {
+	 		 		 		if(detectMobile()){ moveBackgroundToStart(from, to); };
+	 		 		 	}else{
+	 		 		 		if(to!==10){
+	 		 		 			if(detectMobile()){moveBackgroundTo(from, to); };
+	 		 		 		}
+	 		 		 	}
+	 		 		 
+	 		 		 
+
+	 	 		 }
+	 }
 
 	 // Navigation
-	 	 
-	 document.querySelector('#navigation1').addEventListener("click", function() {
-	 		 const from = slide;
-	 		 const to = 1;
+	 for (let i=1; i <=10; i++) {
+	 	document.querySelector('#navigation'+i).addEventListener("click", function() {
+	 		navigateTo(i);
+	 	});
+	 }
 
-	 		 if(slide!=1){
-		 		slide=1;
-
-	 		 	removeAllActivesNavigations();
-	 		 	document.querySelector('#navigation'+slide+'>span').classList.add('active');
-		 		 hideAllPhrases();
-		 		 let current = document.querySelector('#phrase1');
-	 		 	 current.classList.toggle('on');
-
-	 		 	 removeAllSteps();
-	 		 	 document.querySelector('.initial-text').classList.add('on');
-	 		 	 document.querySelector('#back').classList.remove('show');
-	 		 	 document.querySelector('#back').classList.add('hide');
-
-
-	 		 	 document.querySelector('#next').classList.remove('hide');
-				 document.querySelector('#next').classList.add('show');
-				 hideContact();
-		 		 if(detectMobile()){ moveBackgroundToStart(from, to); }else{
-		 		 	jump('section1');
-
-		 		 }
-		 		 
-
-	 		 }
-	 });
- 	 
-	 document.querySelector('#navigation2').addEventListener("click", function() {
-	 		const from = slide;
-	 		const to = 2;
-
-	 		if(slide!=2){ 
-
-	 		 	slide=2;
-	 		 	removeAllActivesNavigations();
-	 		 	document.querySelector('#navigation'+slide+'>span').classList.add('active');
-	 		 	hideAllPhrases();
-	 		 	let current = document.querySelector('#phrase2');
-	 		 	current.classList.toggle('on');
-
-	 		 	removeAllSteps();
-	 		 	document.querySelector('.step1').classList.add('on');
-	 		 	document.querySelector('.initial-text').classList.remove('on');
-	 		 	document.querySelector('#next').classList.remove('hide');
-	 		 	document.querySelector('#next').classList.add('show');
-
-
-	 		 	document.querySelector('#back').classList.remove('hide');
-				document.querySelector('#back').classList.add('show');
-				hideContact();
-		 		jump('section2');
-		 		if(detectMobile()){ moveBackgroundTo(from, to); }
-	 		}
-	 });
-
-	 document.querySelector('#navigation3').addEventListener("click", function() {
-	 		 const from = slide;
-	 		 const to = 3;
-	 		 if(slide!=3){ 
-	 		 	slide=3;
-	 		 	removeAllActivesNavigations();
-	 		 	document.querySelector('#navigation'+slide+'>span').classList.add('active');
-		 		hideAllPhrases();
-		 		let current = document.querySelector('#phrase3');
-		 		current.classList.toggle('on');
-
-		 		removeAllSteps();
-		 		document.querySelector('.step2').classList.add('on');
-		 		document.querySelector('.initial-text').classList.remove('on');
-		 		document.querySelector('#next').classList.remove('hide');
-		 		document.querySelector('#next').classList.add('show');
-
-
-		 			 		 	document.querySelector('#back').classList.remove('hide');
-				document.querySelector('#back').classList.add('show');
-				hideContact();
-		 		jump('section3');
-		 		if(detectMobile()){ moveBackgroundTo(from, to); }
-		 	}
-	 });
-
-	 document.querySelector('#navigation4').addEventListener("click", function() {
-	 		 const from = slide;
-	 		 const to = 4;
-	 		 if(slide!=4){ 
-
-	 		 	slide=4;
-	 		 	removeAllActivesNavigations();
-	 		 	document.querySelector('#navigation'+slide+'>span').classList.add('active');
-	 		 	hideAllPhrases();
-	 		 	let current = document.querySelector('#phrase4');
-	 		 	current.classList.toggle('on');
-
-	 		 	removeAllSteps();
-	 		 	document.querySelector('.step3').classList.add('on');
-	 		 	document.querySelector('.initial-text').classList.remove('on');
-	 		 	document.querySelector('#next').classList.remove('hide');
-	 		 	document.querySelector('#next').classList.add('show');
-
-
-	 		 		 		 	document.querySelector('#back').classList.remove('hide');
-				document.querySelector('#back').classList.add('show');
-				hideContact();
-	 		 	jump('section4');
-	 		 	if(detectMobile()){ moveBackgroundTo(from, to); }
-	 		 }
-	 });
-
-	 document.querySelector('#navigation5').addEventListener("click", function() {
-		 	const from = slide;
-		 	const to = 5;
-	 		 if(slide!=5){ 
-	 		 	slide=5;
-	 		 	removeAllActivesNavigations();
-	 		 	document.querySelector('#navigation'+slide+'>span').classList.add('active');
-		 		 hideAllPhrases();
-		 		 let current = document.querySelector('#phrase5');
-		 		 current.classList.toggle('on');
-
-		 		 removeAllSteps();
-		 		 document.querySelector('.step4').classList.add('on');
-		 		 document.querySelector('.initial-text').classList.remove('on');
-		 		 document.querySelector('#next').classList.remove('hide');
-		 		 document.querySelector('#next').classList.add('show');
-
-
-		 		 	 		 	document.querySelector('#back').classList.remove('hide');
-				document.querySelector('#back').classList.add('show');
-				hideContact();
-		 		 jump('section5');
-		 		 if(detectMobile()){ moveBackgroundTo(from, to); }
-
-		 		}
-	 });
-
-	 document.querySelector('#navigation6').addEventListener("click", function() {
-		 	const from = slide;
-		 	const to = 6;
-	 		if(slide!=6){ 
-	 		 slide=6;
-	 		 removeAllActivesNavigations();
-	 		 document.querySelector('#navigation'+slide+'>span').classList.add('active');
-	 		 hideAllPhrases();
-	 		 let current = document.querySelector('#phrase6');
-	 		 current.classList.toggle('on');
-
-	 		 removeAllSteps();
-	 		 document.querySelector('.step5').classList.add('on');
-	 		 document.querySelector('.initial-text').classList.remove('on');
-	 		 document.querySelector('#next').classList.remove('hide');
-	 		 document.querySelector('#next').classList.add('show');
-
-	 		 	 		 	document.querySelector('#back').classList.remove('hide');
-				document.querySelector('#back').classList.add('show');
-				hideContact();
-	 		 jump('section6');
-	 		 if(detectMobile()){ moveBackgroundTo(from, to); }
-	 		}
-	 });
-
-
-	 document.querySelector('#navigation7').addEventListener("click", function() {
-		 	const from = slide;
-		 	const to = 7;
-	 		 if(slide!=7){ 
-
-	 		 slide=7;
-
-	 		 removeAllActivesNavigations();
-	 		 document.querySelector('#navigation'+slide+'>span').classList.add('active');
-	 		 hideAllPhrases();
-	 		 let current = document.querySelector('#phrase7');
-	 		 current.classList.toggle('on');
-	 		 
-	 		 removeAllSteps();
-	 		 document.querySelector('.step6').classList.add('on');
-	 		 document.querySelector('.initial-text').classList.remove('on');
-	 		 document.querySelector('#next').classList.remove('hide');
-	 		 document.querySelector('#next').classList.add('show');
-
-	 		 document.querySelector('#back').classList.remove('hide');
-				document.querySelector('#back').classList.add('show');
-				hideContact();
-	 		 	jump('section7');
-	 		 	if(detectMobile()){ moveBackgroundTo(from, to); }
-	 		}
-	 });
-
-	 document.querySelector('#navigation8').addEventListener("click", function() {
-	 		 
-		 	const from = slide;
-		 	const to = 8;
-	 		 if(slide!=8){ 
-	 		 	slide=8;
-	 		 	removeAllActivesNavigations();
-	 		 	document.querySelector('#navigation'+slide+'>span').classList.add('active');
-	 		 	hideAllPhrases();
-	 		 	let current = document.querySelector('#phrase8');
-	 		 	current.classList.toggle('on');
-
-	 		 	removeAllSteps();
-	 		 	document.querySelector('.step7').classList.add('on');
-	 		 	document.querySelector('.initial-text').classList.remove('on');
-	 		 	document.querySelector('#back').classList.remove('hide');
-				document.querySelector('#back').classList.add('show');
-
-				document.querySelector('#next').classList.remove('hide');
-				document.querySelector('#next').classList.add('show');
-				hideContact();
-				if(detectMobile()){ moveBackgroundTo(from, to); }else{
-	 		 		jump('section8');
-
-				}
-
-	 		}
-	 });
-
-
-	 document.querySelector('#navigation9').addEventListener("click", function() { 
-	 		 	
-				const from = slide;
-				const to = 9;
-	 		 	slide=9;
-	 		 	hideAllPhrases();
-		 		removeAllActivesNavigations();
-		 		document.querySelector('#navigation'+slide+'>span').classList.add('active');
-	 		 	let current = document.querySelector('#phrase9');
-	 		 	current.classList.toggle('on');
-
-	 		 	removeAllSteps();
-	 		 	document.querySelector('.step8').classList.add('on');
-	 		 	document.querySelector('.initial-text').classList.remove('on');
-	 		 	document.querySelector('#back').classList.remove('hide');
-				document.querySelector('#back').classList.add('show');
-
-				document.querySelector('#next').classList.remove('hide');
-				document.querySelector('#next').classList.add('show');
-
-
-				 hideContact();
-				if(detectMobile()){ moveBackgroundToEnd(); }else{
-
-		 		 jump('section8');
-				}
-
-		 		 
-
-	 });
-	// To end
- 	document.querySelector('#navigation10').addEventListener("click", function() { 
- 			
- 			const from = slide;
-		 	const to = 10;
-
- 			if(slide!=10){ 
-	 		 	slide=10;
-	 		 	removeAllActivesNavigations();
-	 		 	document.querySelector('#navigation10>span').classList.add('active');
-		 		 hideAllPhrases();
-
-
-		 		 
-		 		 if (detectMobile()) {
-		 		 	moveBackgroundToEnd();
-				 	showContact();
-		 		 }else {
-
-		 		 	jump('end');
-
-		 		 }
-		 		 
-		 		 removeAllSteps();
-		 		 document.querySelector('.initial-text').classList.remove('on');
-		 		 document.querySelector('#next').classList.add('hide');
-		 		 document.querySelector('#next').classList.remove('show');
-
-		 		 document.querySelector('#back').classList.remove('hide');
-		 		 document.querySelector('#back').classList.add('show');
-	 		}
-	 });
-
+	 // Cleaning ...
  	function removeAllSteps() {
- 		for (var h = 1; h <= 8; h++) { 
+ 		for (let h = 1; h <= 8; h++) { 
  			let step = document.querySelector('.step'+h);
  				step.classList.remove('on');
 
@@ -456,7 +301,7 @@ window.onload = function() {
  				phrase.classList.toggle('off');
  		}
 
- 		for (var j = 1; j <= 9; j++) { 
+ 		for (let j = 1; j <= 9; j++) { 
  			let phrase = document.querySelector('#phrase'+j);
  			if (phrase.classList.contains('on') ) {
  				phrase.classList.toggle('on');
@@ -466,7 +311,7 @@ window.onload = function() {
  	}
 
  	function removeAllActivesNavigations() {
- 		 for (var j = 1; j <= 10; j++) { 
+ 		 for (let j = 1; j <= 10; j++) { 
  		 	let nav = document.querySelector('#navigation'+j+'>span');
  		 	if (nav) {
  				nav.classList.remove('active');	
@@ -515,51 +360,9 @@ window.onload = function() {
 		}
 	}
 
+	// For Mobile
 	var positionX = 0;
 	var positionEnd = 0;
-	function moveBackgroundToFront() {
-
-		positionEnd = positionEnd + (imageSize/10);
-
-
-		var elem = document.querySelector('.large-background'),
-		  timer;
-		timer = setInterval(function() {
-		  elem.style.backgroundPosition = `-${positionX}px 40%`;
-		  positionX += 20;
-		  
-		  if ( positionX >= positionEnd ) {
-		  	positionX = positionEnd;
-
-		  	
-		    clearInterval( timer );
-		  }
-		}, 15);
-	}
-
-	function moveBackgroundToBack() {
-
-		positionEnd = positionEnd - (imageSize/10)
-
-
-		var elem = document.querySelector('.large-background'),
-		  timer;
-		// Move the element 10px on the right every 16ms
-		timer = setInterval(function() {
-		  elem.style.backgroundPosition = `-${positionX}px 40%`;
-		  positionX -= 20;
-		  
-		  // clear the timer at 400px to stop the animation
-		  if ( positionX <= positionEnd ) {
-		  	positionX = positionEnd;
-
-		  	
-		    clearInterval( timer );
-		  }
-		}, 15);
-	}
-
-
 
 
 	function getPositions(from, to) {
@@ -578,12 +381,12 @@ window.onload = function() {
 		
 		if(to < from) {
 			positionEnd = positionOld - positionNew;
-			moveBackgroundToBack2(positionEnd);
+			moveBackgroundToBack(positionEnd);
 		}
 
 		if (to > from) {
 			positionEnd = positionOld + positionNew;
-			moveBackgroundToFront2(positionEnd);
+			moveBackgroundToFront(positionEnd);
 		}
 
 
@@ -591,12 +394,12 @@ window.onload = function() {
 
 	}
 
-	function moveBackgroundToFront2(positionEnd) {
+	function moveBackgroundToFront(positionEnd) {
 
 		var elem = document.querySelector('.large-background'),
 		  timer;
 		timer = setInterval(function() {
-		  elem.style.backgroundPosition = `-${positionX}px 40%`;
+		  elem.style.backgroundPosition = `-${positionX}px 60%`;
 		  positionX += 20;
 		  
 		  if ( positionX >= positionEnd || positionEnd === imageSize ) {
@@ -608,14 +411,14 @@ window.onload = function() {
 		}, 15);
 	}
 
-	function moveBackgroundToBack2(positionEnd) {
+	function moveBackgroundToBack(positionEnd) {
 
 
 
 		var elem = document.querySelector('.large-background'),
 		  timer;
 		timer = setInterval(function() {
-		  elem.style.backgroundPosition = `-${positionX}px 40%`;
+		  elem.style.backgroundPosition = `-${positionX}px 60%`;
 		  positionX -= 20;
 		  
 		  if ( positionX <= positionEnd || positionEnd === 0 ) {
@@ -633,7 +436,7 @@ window.onload = function() {
 		var elem = document.querySelector('.large-background'),
 		  timer;
 		timer = setInterval(function() {
-		  elem.style.backgroundPosition = `-${positionX}px 40%`;
+		  elem.style.backgroundPosition = `-${positionX}px 60%`;
 		  positionX -= 20;
 		  
 		  if ( positionX <= positionEnd ) {
@@ -652,7 +455,7 @@ window.onload = function() {
 		var elem = document.querySelector('.large-background'),
 		  timer;
 		timer = setInterval(function() {
-		  elem.style.backgroundPosition = `-${positionX}px 40%`;
+		  elem.style.backgroundPosition = `-${positionX}px 60%`;
 		  positionX += 20;
 		  
 		  if ( positionX >= positionEnd ) {
